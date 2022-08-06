@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MultiTenency.Entities
 {
-    public interface ITenantOwnedEntity : IMustHaveTenant
+    public interface ITenantOwnedEntity
     {
         public int TenantId { get; set; }
-
     }
 }

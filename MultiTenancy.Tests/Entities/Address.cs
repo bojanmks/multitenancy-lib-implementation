@@ -14,6 +14,6 @@ namespace MiltiTenancy.Tests.Entities
         public string Value { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
-        public string TenantIdPath => "User.TenantId";
+        public string TenantIdPath => "User";
     }
 }

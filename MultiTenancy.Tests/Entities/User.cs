@@ -16,7 +16,5 @@ namespace MultiTenency.Tests.Entities
 
         public int TenantId { get; set; }
         public virtual Tenant Tenant { get; set; }
-
-        public string TenantIdPath => "TenantId";
     }
 }

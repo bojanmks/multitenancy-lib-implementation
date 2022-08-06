@@ -37,6 +37,12 @@ namespace MultiTenancy
                        .ToList()
                        .ForEach(entityType =>
                        {
+                           if (typeof(ITenantOwnedEntity).IsAssignableFrom(entityType.ClrType))
+                           {
+                               EntityTypeBuilderExtensions.AddQueryFilter<ITenantOwnedEntity>(modelBuilder.Entity(entityType.ClrType), 
+                                                                                              e => e.TenantId == _user.TenantId);
+                           }
+
                            if (typeof(IMustHaveTenant).IsAssignableFrom(entityType.ClrType))
                            {
                                var type = entityType.ClrType;
@@ -55,7 +61,8 @@ namespace MultiTenancy
 
                            if (typeof(IMustHaveUser).IsAssignableFrom(entityType.ClrType))
                            {
-                               EntityTypeBuilderExtensions.AddQueryFilter<IMustHaveUser>(modelBuilder.Entity(entityType.ClrType), e => (_user is IApplicationSuperUser) || e.UserId == _user.UserId);
+                               EntityTypeBuilderExtensions.AddQueryFilter<IMustHaveUser>(modelBuilder.Entity(entityType.ClrType), 
+                                                    e => (_user is IApplicationSuperUser) || e.UserId == _user.UserId);
                            }
 
 

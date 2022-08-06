@@ -13,6 +13,6 @@ namespace MiltiTenancy.Tests.Entities
         public string Name { get; set; }
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
-        public string TenantIdPath => "Product.Category.TenantId";
+        public string TenantIdPath => "Product.Category";
     }
 }
