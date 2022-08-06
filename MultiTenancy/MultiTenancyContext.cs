@@ -17,7 +17,7 @@ namespace MultiTenancy
     {
         protected readonly IApplicationUser _user;
         public string Schema { get; }
-        protected virtual List<IQueryFilterEntry> QueryFilterEntries { get; }
+        private List<IQueryFilterEntry> QueryFilterEntries { get; set; } = new List<IQueryFilterEntry>();
 
         public MultiTenancyContext(DbContextOptions options, IApplicationUser user, string schema) : base(options)
         {
@@ -101,6 +101,14 @@ namespace MultiTenancy
             }
 
             return base.SaveChanges();
+        }
+
+        protected void AddQueryFilterEntry<T>(Expression<Func<T, bool>> expression)
+        {
+            QueryFilterEntries.Add(new QueryFilterEntry<T>
+            {
+                Expression = expression
+            });
         }
     }
 }

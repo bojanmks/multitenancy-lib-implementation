@@ -14,16 +14,15 @@ namespace MultiTenency.Tests
 {
     public class ExampleContext : MultiTenancyContext
     {
-        protected override List<IQueryFilterEntry> QueryFilterEntries => new List<IQueryFilterEntry>
-        {
-            new QueryFilterEntry<User>
-            {
-                Expression = e => e.Id < 1000
-            }
-        };
-
         public ExampleContext(DbContextOptions options, IApplicationUser user, string schema) : base(options, user, schema)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            AddQueryFilterEntry<User>(e => e.Id < 1000);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Tenant> Tenants { get; set; }
