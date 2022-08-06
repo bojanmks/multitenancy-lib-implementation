@@ -17,6 +17,6 @@ namespace MiltiTenancy.Tests.Entities
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public string TenantIdPath => "Category.TenantId";
+        public string TenantIdPath => "Category";
     }
 }

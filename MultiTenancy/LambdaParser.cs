@@ -13,7 +13,7 @@ namespace MultiTenency
     {
         public Expression<Func<T, bool>> ParseLambda(string path, IApplicationUser user)
         {
-            return DynamicExpressionParser.ParseLambda<T, bool>(new ParsingConfig(), true, $"{path} = @0", user.TenantId);
+            return DynamicExpressionParser.ParseLambda<T, bool>(new ParsingConfig(), true, $"{path}.TenantId = @0", user.TenantId);
         }
     }
 }
