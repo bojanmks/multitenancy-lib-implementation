@@ -11,7 +11,7 @@ namespace MultiTenency
 {
     internal class LambdaParser<T>
     {
-        public Expression<Func<T, bool>> ParseLambda(string path, IApplicationUser user)
+        public Expression<Func<T, bool>> ParseTenantIdLambda(string path, IApplicationUser user)
         {
             return DynamicExpressionParser.ParseLambda<T, bool>(new ParsingConfig(), true, $"{path}.TenantId = @0", user.TenantId);
         }

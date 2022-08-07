@@ -33,7 +33,7 @@ namespace MultiTenancy.Extensions
                 var lambdaParserGenericType = typeof(LambdaParser<>).MakeGenericType(type);
                 dynamic lambdaParserInstance = Activator.CreateInstance(lambdaParserGenericType);
 
-                var expression = lambdaParserInstance.ParseLambda(tenantIdPath, user);
+                var expression = lambdaParserInstance.ParseTenantIdLambda(tenantIdPath, user);
 
                 EntityTypeBuilderExtensions.AddQueryFilter(builder.Entity(type), expression);
             }
