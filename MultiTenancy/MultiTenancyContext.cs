@@ -37,46 +37,10 @@ namespace MultiTenancy
                        .ToList()
                        .ForEach(entityType =>
                        {
-                           if (typeof(ITenantOwnedEntity).IsAssignableFrom(entityType.ClrType))
-                           {
-                               EntityTypeBuilderExtensions.AddQueryFilter<ITenantOwnedEntity>(modelBuilder.Entity(entityType.ClrType), 
-                                                                                              e => e.TenantId == _user.TenantId);
-                           }
-
-                           if (typeof(IMustHaveTenant).IsAssignableFrom(entityType.ClrType))
-                           {
-                               var type = entityType.ClrType;
-                               var instance = Activator.CreateInstance(entityType.ClrType);
-                               var tenantIdPath = (instance as IMustHaveTenant).TenantIdPath;
-
-                               var lambdaParserGenericType = typeof(LambdaParser<>).MakeGenericType(type);
-                               dynamic lambdaParserInstance = Activator.CreateInstance(lambdaParserGenericType);
-
-                               var expression = lambdaParserInstance.ParseLambda(tenantIdPath, _user);
-
-                               EntityTypeBuilderExtensions.AddQueryFilter(modelBuilder.Entity(entityType.ClrType), expression);
-                           }
-
-
-
-                           if (typeof(IMustHaveUser).IsAssignableFrom(entityType.ClrType))
-                           {
-                               EntityTypeBuilderExtensions.AddQueryFilter<IMustHaveUser>(modelBuilder.Entity(entityType.ClrType), 
-                                                    e => (_user is IApplicationSuperUser) || e.UserId == _user.UserId);
-                           }
-
-
-
-                           foreach(var item in QueryFilterEntries ?? Enumerable.Empty<IQueryFilterEntry>())
-                           {
-                               if (item.Type.IsAssignableFrom(entityType.ClrType))
-                               {
-                                   Type entryGenericType = typeof(QueryFilterEntry<>).MakeGenericType(item.Type);
-                                   dynamic entry = Convert.ChangeType(item, entryGenericType);
-
-                                   EntityTypeBuilderExtensions.AddQueryFilter(modelBuilder.Entity(entityType.ClrType), entry.Expression);
-                               }
-                           }
+                           modelBuilder.AddITenantOwnedEntityQueryFilter(entityType.ClrType, _user);
+                           modelBuilder.AddIMustHaveTenantQueryFilter(entityType.ClrType, _user);
+                           modelBuilder.AddIMustHaveUserQueryFilter(entityType.ClrType, _user);
+                           modelBuilder.AddCustomQueryFilters(entityType.ClrType, QueryFilterEntries);
                        });
 
             base.OnModelCreating(modelBuilder);
