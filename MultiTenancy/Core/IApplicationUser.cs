@@ -12,7 +12,12 @@ namespace MultiTenency.Core
         public int TenantId { get; set; }
     }
 
-    public interface IApplicationSuperUser : IApplicationUser
+    public interface IApplicationSuperUserWithinTenant : IApplicationUser
+    {
+
+    }
+
+    public interface IApplicationSuperUserGlobal : IApplicationSuperUserWithinTenant
     {
 
     }

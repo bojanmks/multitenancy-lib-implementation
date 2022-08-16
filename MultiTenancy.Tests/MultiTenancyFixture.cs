@@ -20,6 +20,7 @@ namespace MiltiTenancy.Tests
         public ExampleContext Context2 { get; }
         public ExampleContext Context3 { get; }
         public ExampleContext Context4 { get; }
+        public ExampleContext Context5 { get; }
 
         public MultiTenancyFixture()
         {
@@ -37,7 +38,7 @@ namespace MiltiTenancy.Tests
                 TenantId = 2
             };
 
-            var user3 = new ApplicationSuperUser
+            var user3 = new ApplicationSuperUserWithinTenant
             {
                 UserId = 3,
                 TenantId = 2
@@ -47,6 +48,12 @@ namespace MiltiTenancy.Tests
             {
                 UserId = 4,
                 TenantId = 2
+            };
+
+            var user5 = new ApplicationSuperUserGlobal
+            {
+                UserId = 5,
+                TenantId = 1
             };
 
             #endregion
@@ -85,6 +92,10 @@ namespace MiltiTenancy.Tests
             Context4 = new ExampleContext(builder.Options, user4, "User4");
             Context4.Database.OpenConnection();
             Context4.Database.EnsureCreated();
+
+            Context5 = new ExampleContext(builder.Options, user5, "User5");
+            Context5.Database.OpenConnection();
+            Context5.Database.EnsureCreated();
 
             #endregion
 
@@ -138,6 +149,14 @@ namespace MiltiTenancy.Tests
                 Email = "u4@gmail.com",
                 FullName = "User 4",
                 Username = "user4"
+            });
+
+            Context5.Users.Add(new User
+            {
+                Id = 5,
+                Email = "u5@gmail.com",
+                FullName = "User 5",
+                Username = "user5"
             });
 
             Context1.Users.Add(new User
@@ -219,6 +238,7 @@ namespace MiltiTenancy.Tests
             Context2.SaveChanges();
             Context3.SaveChanges();
             Context4.SaveChanges();
+            Context5.SaveChanges();
         }
     }
 }

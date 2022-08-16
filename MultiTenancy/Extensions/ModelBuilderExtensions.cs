@@ -19,13 +19,13 @@ namespace MultiTenancy.Extensions
             if (typeof(ITenantOwnedEntity).IsAssignableFrom(type))
             {
                 EntityTypeBuilderExtensions.AddQueryFilter<ITenantOwnedEntity>(builder.Entity(type),
-                                                                               e => e.TenantId == user.TenantId);
+                                                                               e => e.TenantId == user.TenantId || user is IApplicationSuperUserGlobal);
             }
         }
 
         internal static void AddIMustHaveTenantQueryFilter(this ModelBuilder builder, Type type, IApplicationUser user)
         {
-            if (typeof(IMustHaveTenant).IsAssignableFrom(type))
+            if (typeof(IMustHaveTenant).IsAssignableFrom(type) && !(user is IApplicationSuperUserGlobal))
             {
                 var instance = Activator.CreateInstance(type);
                 var tenantIdPath = (instance as IMustHaveTenant).TenantIdPath;
@@ -44,7 +44,7 @@ namespace MultiTenancy.Extensions
             if (typeof(IMustHaveUser).IsAssignableFrom(type))
             {
                 EntityTypeBuilderExtensions.AddQueryFilter<IMustHaveUser>(builder.Entity(type),
-                                     e => (user is IApplicationSuperUser) || e.UserId == user.UserId);
+                                     e => (user is IApplicationSuperUserWithinTenant) || e.UserId == user.UserId);
             }
         }
 

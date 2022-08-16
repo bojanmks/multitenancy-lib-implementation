@@ -13,7 +13,12 @@ namespace MiltiTenancy.Tests.Core
         public int TenantId { get; set; }
     }
 
-    public class ApplicationSuperUser : ApplicationUser, IApplicationSuperUser
+    public class ApplicationSuperUserWithinTenant : ApplicationUser, IApplicationSuperUserWithinTenant
+    {
+
+    }
+
+    public class ApplicationSuperUserGlobal : ApplicationUser, IApplicationSuperUserGlobal
     {
 
     }

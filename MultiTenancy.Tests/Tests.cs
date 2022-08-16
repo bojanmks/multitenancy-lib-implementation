@@ -78,7 +78,7 @@ namespace MiltiTenancy.Tests
         }
 
         [Fact]
-        public void UserShouldSeeAllAddressesWithinSameTenant_WhenSuperUser()
+        public void UserShouldSeeAllAddressesWithinSameTenant_WhenSuperUserWithinTenant()
         {
             var context3 = _fixture.Context3;
 
@@ -87,30 +87,14 @@ namespace MiltiTenancy.Tests
             addresses3.Should().HaveCount(3);
         }
 
-        //[Fact]
-        //public void CacheTest()
-        //{
-        //    var builder = new DbContextOptionsBuilder();
-        //    builder.UseSqlite(@"Data Source=Shareable;Mode=Memory;Cache=Shared").UseLazyLoadingProxies();
+        [Fact]
+        public void UserShouldSeeAllAddresses_WhenSuperUserGlobal()
+        {
+            var context5 = _fixture.Context5;
 
-        //    var user = new ApplicationUser
-        //    {
-        //        UserId = 1,
-        //        TenantId = 1
-        //    };
+            var addresses5 = context5.Addresses.ToList();
 
-        //    var contextList = new List<ExampleContext>();
-
-        //    for(int i = 0; i < 20; i++)
-        //    {
-        //        var context = new ExampleContext(builder.Options, user, Guid.NewGuid().ToString());
-        //        context.Database.OpenConnection();
-        //        context.Database.EnsureCreated();
-
-        //        contextList.Add(context);
-        //    }
-
-        //    contextList.Should().HaveCount(20);
-        //}
+            addresses5.Should().HaveCount(4);
+        }
     }
 }
