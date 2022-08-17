@@ -8,8 +8,8 @@ namespace MultiTenency.Core
 {
     public interface IApplicationUser
     {
-        public int UserId { get; set; }
-        public int TenantId { get; set; }
+        public int UserId { get; }
+        public int TenantId { get; }
     }
 
     public interface IApplicationSuperUserWithinTenant : IApplicationUser
