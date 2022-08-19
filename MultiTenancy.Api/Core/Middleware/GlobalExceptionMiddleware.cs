@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using MultiTenancy.Application.Exceptions;
 using MultiTenancy.Application.Logging;
 using System.Threading.Tasks;
 
@@ -30,34 +32,34 @@ namespace MultiTenancy.Api.Core.Middleware
                 object response = null;
                 var statusCode = StatusCodes.Status500InternalServerError;
 
-                //if (ex is ForbiddenUseCaseException)
-                //{
-                //    statusCode = StatusCodes.Status403Forbidden;
-                //}
+                if (ex is ForbiddenUseCaseException)
+                {
+                    statusCode = StatusCodes.Status403Forbidden;
+                }
 
-                //if (ex is EntityNotFoundException)
-                //{
-                //    statusCode = StatusCodes.Status404NotFound;
-                //}
+                if (ex is EntityNotFoundException)
+                {
+                    statusCode = StatusCodes.Status404NotFound;
+                }
 
-                //if (ex is ValidationException e)
-                //{
-                //    statusCode = StatusCodes.Status422UnprocessableEntity;
-                //    response = new
-                //    {
-                //        errors = e.Errors.Select(x => new
-                //        {
-                //            property = x.PropertyName,
-                //            error = x.ErrorMessage
-                //        })
-                //    };
-                //}
+                if (ex is ValidationException e)
+                {
+                    statusCode = StatusCodes.Status422UnprocessableEntity;
+                    response = new
+                    {
+                        errors = e.Errors.Select(x => new
+                        {
+                            property = x.PropertyName.Substring(x.PropertyName.LastIndexOf('.') + 1),
+                            error = x.ErrorMessage
+                        })
+                    };
+                }
 
-                //if (ex is UseCaseConflictException conflictEx)
-                //{
-                //    statusCode = StatusCodes.Status409Conflict;
-                //    response = new { message = conflictEx.Message };
-                //}
+                if (ex is UseCaseConflictException conflictEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = conflictEx.Message };
+                }
 
                 if (ex is UnauthorizedAccessException unauthEx)
                 {
@@ -65,11 +67,11 @@ namespace MultiTenancy.Api.Core.Middleware
                     response = new { message = unauthEx.Message };
                 }
 
-                //if (ex is UnprocessableEntityException unprEx)
-                //{
-                //    statusCode = StatusCodes.Status422UnprocessableEntity;
-                //    response = new { message = unprEx.Message };
-                //}
+                if (ex is UnprocessableEntityException unprEx)
+                {
+                    statusCode = StatusCodes.Status422UnprocessableEntity;
+                    response = new { message = unprEx.Message };
+                }
 
                 httpContext.Response.StatusCode = statusCode;
                 if (response != null)

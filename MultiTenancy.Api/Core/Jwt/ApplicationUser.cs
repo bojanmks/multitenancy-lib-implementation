@@ -1,16 +1,17 @@
-﻿using MultiTenancy.Application.Enums;
+﻿using MultiTenancy.Domain;
+using MultiTenancy.Domain.Enums;
 using MultiTenency.Core;
 
 namespace MultiTenancy.Api.Core.Jwt
 {
-    public class ApplicationUser : IApplicationUser
+    public class ApplicationUser : IApplicationActor
     {
         public int UserId { get; set; }
         public int TenantId { get; set; }
-        public string Identity { get; set; }
+        public string Username { get; set; }
         public string Email { get; set; }
         public UserRole Role { get; set; }
-        public IEnumerable<int> UseCaseIds { get; set; } = new List<int>();
+        public IEnumerable<string> UseCaseIds { get; set; } = new List<string>();
     }
 
     public class ApplicationSuperUserTenant : ApplicationUser, IApplicationSuperUserWithinTenant
@@ -23,12 +24,13 @@ namespace MultiTenancy.Api.Core.Jwt
 
     }
 
-    public class AnonimousUser : IApplicationUser
+    public class AnonimousUser : IApplicationActor
     {
         public int UserId => 0;
         public int TenantId => 0;
-        public string Identity => null;
+        public string Username => null;
         public string Email => null;
-        public IEnumerable<int> UseCaseIds { get; set; } = new List<int>();
+        public UserRole Role => UserRole.Anonimous;
+        public IEnumerable<string> UseCaseIds { get; set; } = new List<string>();
     }
 }

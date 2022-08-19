@@ -1,5 +1,5 @@
 ﻿using MultiTenancy.Api.Core.Jwt;
-using MultiTenancy.Application.Enums;
+using MultiTenancy.Domain.Enums;
 
 namespace MultiTenancy.Api.Core
 {

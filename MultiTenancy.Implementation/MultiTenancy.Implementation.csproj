@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MultiTenancy.Application\MultiTenancy.Application.csproj" />
+    <ProjectReference Include="..\MultiTenancy.DataAccess\MultiTenancy.DataAccess.csproj" />
+    <ProjectReference Include="..\MultiTenancy.Domain\MultiTenancy.Domain.csproj" />
+    <ProjectReference Include="..\MultiTenancy\MultiTenancy.csproj" />
   </ItemGroup>
 
 </Project>

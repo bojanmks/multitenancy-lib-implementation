@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MultiTenancy.Application.Search
+{
+    public interface ISearchObject
+    {
+        public int Page { get; set; }
+        public int PerPage { get; set; }
+        public bool Paginate { get; set; }
+    }
+}

@@ -1,8 +1,9 @@
 using MultiTenancy.Api.Core;
+using MultiTenancy.Api.Core.Extensions;
 using MultiTenancy.Api.Core.Middleware;
-using MultiTenancy.Api.Extensions;
 using MultiTenancy.Application.Logging;
 using MultiTenancy.Implementation.Logging;
+using MultiTenancy.Implementation.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,16 @@ var appSettings = new AppSettings();
 builder.Configuration.Bind(appSettings);
 builder.Services.AddSingleton(appSettings);
 
-builder.AddApplicationUser();
+builder.AddApplicationActor();
 builder.AddJwt(appSettings);
+builder.AddDbContext(appSettings);
+builder.AddUseCaseValidators();
+builder.AddUseCaseHandlers();
 
 builder.Services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
+builder.Services.AddTransient<IUseCaseLogger, ConsoleUseCaseLogger>();
+builder.Services.AddTransient<UseCaseMediator>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();

@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using MultiTenancy.Application.Enums;
+using MultiTenancy.Domain.Enums;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -41,10 +41,10 @@ namespace MultiTenancy.Api.Core.Jwt
             {
                 UserId = 1,
                 TenantId = 1,
-                Identity = "User1",
+                Username = "User1",
                 Email = "u1@gmail.com",
                 Role = UserRole.SuperUserGlobal,
-                UseCaseIds = new List<int>()
+                UseCaseIds = new List<string> { "SearchTestUseCase", "FindTestUseCase", "AddTestUseCase", "UpdateTestUseCase", "DeleteTestUseCase", "ExecuteTestUseCase" }
             };
 
             var claims = new List<Claim>
@@ -54,7 +54,7 @@ namespace MultiTenancy.Api.Core.Jwt
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64, _settings.Issuer),
                 new Claim("UserId", appUser.UserId.ToString(), ClaimValueTypes.String, _settings.Issuer),
                 new Claim("TenantId", appUser.TenantId.ToString(), ClaimValueTypes.String, _settings.Issuer),
-                new Claim("Identity", appUser.Identity, ClaimValueTypes.String, _settings.Issuer),
+                new Claim("Username", appUser.Username, ClaimValueTypes.String, _settings.Issuer),
                 new Claim("Email", appUser.Email, ClaimValueTypes.String, _settings.Issuer),
                 new Claim("Role", appUser.Role.ToString(), ClaimValueTypes.String, _settings.Issuer),
                 new Claim("UseCases", JsonConvert.SerializeObject(appUser.UseCaseIds), ClaimValueTypes.String, _settings.Issuer)
