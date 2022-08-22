@@ -108,26 +108,20 @@ namespace MultiTenancy.Api.Core.Extensions
 
         public static void AddUseCaseValidators(this WebApplicationBuilder builder)
         {
-            var type = typeof(IValidator);
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract && p.Namespace.StartsWith("MultiTenancy.Implementation.Validators"));
-
-            foreach(var t in types)
-            {
-                if(t.BaseType != null)
-                {
-                    builder.Services.AddTransient(t.BaseType, t);
-                }
-            }
+            builder.AddImplementationsDynamically<IValidator>("MultiTenancy.Implementation.Validators");
         }
 
         public static void AddUseCaseHandlers(this WebApplicationBuilder builder)
         {
-            var type = typeof(IUseCaseHandler);
+            builder.AddImplementationsDynamically<IUseCaseHandler>("MultiTenancy.Implementation.UseCases.Handlers");
+        }
+
+        private static void AddImplementationsDynamically<T>(this WebApplicationBuilder builder, string namespacePrefix = "")
+        {
+            var type = typeof(T);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract && p.Namespace.StartsWith("MultiTenancy.Implementation.UseCases.Handlers"));
+                .Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract && p.Namespace.StartsWith(namespacePrefix));
 
             foreach (var t in types)
             {
