@@ -107,7 +107,20 @@ namespace MultiTenancy.Api.Core.Extensions
 
         public static void AddUseCaseValidators(this WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IValidator<AddTestUseCase>, AddTestValidator>();
+            //builder.Services.AddTransient<IValidator<AddTestUseCase>, AddTestValidator>();
+
+            var type = typeof(IValidator);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract && p.Namespace.StartsWith("MultiTenancy.Implementation.Validators"));
+
+            foreach(var t in types)
+            {
+                if(t.BaseType != null)
+                {
+                    builder.Services.AddTransient(t.BaseType, t);
+                }
+            }
         }
 
         public static void AddUseCaseHandlers(this WebApplicationBuilder builder)

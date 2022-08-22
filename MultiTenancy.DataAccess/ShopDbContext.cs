@@ -55,6 +55,8 @@ namespace MultiTenancy.DataAccess
 
         public DbSet<Test> Test { get; set; }
 
+        public DbSet<Tenant> Tenants { get; set; }
+
         public DbSet<Image> Images { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Specification> Specifications { get; set; }

@@ -146,7 +146,7 @@ namespace MultiTenancy.Implementation.UseCases
                 throw new ForbiddenUseCaseException(useCase.Id, _user.UserId.ToString());
             }
 
-            var validator = _provider.GetService<IValidator<TUseCase>>();
+            var validator = _provider.GetService<AbstractValidator<TUseCase>>();
 
             if (validator != null)
             {
