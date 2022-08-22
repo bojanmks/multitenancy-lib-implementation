@@ -15,7 +15,7 @@ namespace MultiTenancy.DataAccess.Configuration
         public void Configure(EntityTypeBuilder<T> builder)
         {
             builder.Property(x => x.UpdatedBy).HasMaxLength(30);
-            builder.Property(x => x.CreatedAt).HasDefaultValueSql("getdate()");
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
 
             ConfigureConstraints(builder);
         }

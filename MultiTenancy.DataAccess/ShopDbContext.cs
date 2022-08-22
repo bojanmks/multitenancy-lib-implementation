@@ -20,6 +20,8 @@ namespace MultiTenancy.DataAccess
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
+            AddQueryFilterEntry<Entity>(e => e.IsActive.Value);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -36,7 +38,13 @@ namespace MultiTenancy.DataAccess
                             break;
                         case EntityState.Modified:
                             e.UpdatedAt = DateTime.UtcNow;
-                            e.UpdatedBy = (_user is IApplicationActor u) ? u.Username : "/";
+                            e.UpdatedBy = (_user is IApplicationActor um) ? um.Username : "/";
+                            break;
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified;
+                            e.DeletedAt = DateTime.UtcNow;
+                            e.DeletedBy = (_user is IApplicationActor ud) ? ud.Username : "/";
+                            e.IsActive = false;
                             break;
                     }
                 }
