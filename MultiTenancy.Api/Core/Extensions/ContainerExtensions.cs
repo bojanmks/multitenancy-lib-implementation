@@ -26,7 +26,7 @@ namespace MultiTenancy.Api.Core.Extensions
 
                 if (claims == null || claims.FindFirst("UserId") == null)
                 {
-                    return new AnonimousUser();
+                    return new AnonymousUser();
                 }
 
                 var role = Enum.Parse<UserRole>(claims.FindFirst("Role").Value);
@@ -80,7 +80,7 @@ namespace MultiTenancy.Api.Core.Extensions
         {
             builder.Services.AddTransient(x =>
             {
-                var options = new DbContextOptionsBuilder<TestDbContext>()
+                var options = new DbContextOptionsBuilder<ShopDbContext>()
                                     .EnableSensitiveDataLogging()
                                     .UseSqlServer(settings.ConnString, x => x.MigrationsAssembly("MultiTenancy.Api"))
                                     .UseLazyLoadingProxies()
@@ -89,14 +89,14 @@ namespace MultiTenancy.Api.Core.Extensions
                 var user = x.GetService<IApplicationActor>();
                 var schema = Guid.NewGuid().ToString();
 
-                var context = new TestDbContext(options, user, schema);
+                var context = new ShopDbContext(options, user, schema);
 
                 return context;
             });
 
             var config = Configuration.GetConfiguration<AppSettings>();
 
-            builder.Services.AddDbContext<TestDbContext>(x =>
+            builder.Services.AddDbContext<ShopDbContext>(x =>
             {
                 x.UseSqlServer(config.ConnString, x => x.MigrationsAssembly("MultiTenancy.Api"))
                 .UseLazyLoadingProxies();

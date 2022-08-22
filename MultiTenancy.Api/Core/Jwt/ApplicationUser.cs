@@ -24,13 +24,13 @@ namespace MultiTenancy.Api.Core.Jwt
 
     }
 
-    public class AnonimousUser : IApplicationActor
+    public class AnonymousUser : IApplicationActor
     {
         public int UserId => 0;
         public int TenantId => 0;
         public string Username => null;
         public string Email => null;
-        public UserRole Role => UserRole.Anonimous;
+        public UserRole Role => UserRole.Anonymous;
         public IEnumerable<string> UseCaseIds { get; set; } = new List<string>();
     }
 }

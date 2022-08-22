@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Domain.Enums
 {
-    public enum UserRole
+    public enum OrderStatus
     {
-        User = 0,
-        SuperUserTenant = 1,
-        SuperUserGlobal = 2,
-        Anonymous = 3
+        Pending = 0,
+        Processed = 1,
+        Completed = 2,
+        Cancelled = 3
+
     }
 }

@@ -12,8 +12,8 @@ namespace MultiTenancy.Implementation.UseCases.Handlers.Test
 {
     public class ExecuteTestUseCaseHandler : IUseCaseHandler<ExecuteTestUseCase, Empty>
     {
-        private readonly TestDbContext _context;
-        public ExecuteTestUseCaseHandler(TestDbContext context)
+        private readonly ShopDbContext _context;
+        public ExecuteTestUseCaseHandler(ShopDbContext context)
         {
             _context = context;
         }
