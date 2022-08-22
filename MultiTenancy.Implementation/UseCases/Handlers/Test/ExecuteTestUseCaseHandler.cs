@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Implementation.UseCases.Handlers.Test
 {
-    public class ExecuteTestUseCaseHandler : IUseCaseHandler<ExecuteTestUseCase, Empty>
+    public class ExecuteTestUseCaseHandler : UseCaseHandler<ExecuteTestUseCase, Empty>
     {
         private readonly ShopDbContext _context;
         public ExecuteTestUseCaseHandler(ShopDbContext context)
         {
             _context = context;
         }
-        public Empty Handle(ExecuteTestUseCase useCase)
+
+        public override Empty Handle(ExecuteTestUseCase useCase)
         {
             _context.Test.Add(new Domain.Test
             {

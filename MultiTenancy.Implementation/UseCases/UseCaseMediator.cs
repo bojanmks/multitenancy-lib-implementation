@@ -116,7 +116,7 @@ namespace MultiTenancy.Implementation.UseCases
         {
             ValidateAndLog<TUseCase, TData>(useCase);
 
-            var handler = _provider.GetService<IUseCaseHandler<TUseCase, TOut>>();
+            var handler = _provider.GetService<UseCaseHandler<TUseCase, TOut>>();
 
             if(handler == null)
             {
@@ -128,7 +128,7 @@ namespace MultiTenancy.Implementation.UseCases
 
         private void ValidateAndLog<TUseCase, TData>(TUseCase useCase) where TUseCase : UseCase<TData>
         {
-            var isAuthorized = _user.UseCaseIds.Contains(useCase.Id);
+            var isAuthorized = UserRoleUseCaseMap.GetUseCases(_user.Role).Contains(useCase.Id) || _user.UseCaseIds.Contains(useCase.Id);
 
             var log = new UseCaseLog
             {

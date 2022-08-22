@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Application.UseCases
 {
-    public interface IUseCaseHandler
+    public abstract class UseCaseHandler<TUseCase, TOut> : IUseCaseHandler where TUseCase : IUseCase
     {
-        
+        public abstract TOut Handle(TUseCase useCase);
     }
 }

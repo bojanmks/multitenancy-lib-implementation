@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.DataAccess.Configuration
 {
-    public class AddressConfiguration : EntityConfiguration<Address>
+    public class TestConfiguration : EntityConfiguration<Test>
     {
-        protected override void ConfigureConstraints(EntityTypeBuilder<Address> builder)
+        protected override void ConfigureConstraints(EntityTypeBuilder<Test> builder)
         {
-            builder.Property(x => x.Value).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         }
     }
 }

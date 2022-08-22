@@ -39,6 +39,7 @@ namespace MultiTenancy.Api.Core.Extensions
                 user.TenantId = Int32.Parse(claims.FindFirst("UserId").Value);
                 user.Username = claims.FindFirst("Username").Value;
                 user.Email = claims.FindFirst("Email").Value;
+                user.Role = role;
                 user.UseCaseIds = JsonConvert.DeserializeObject<List<string>>(claims.FindFirst("UseCases").Value);
 
                 return user;
@@ -107,8 +108,6 @@ namespace MultiTenancy.Api.Core.Extensions
 
         public static void AddUseCaseValidators(this WebApplicationBuilder builder)
         {
-            //builder.Services.AddTransient<IValidator<AddTestUseCase>, AddTestValidator>();
-
             var type = typeof(IValidator);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
@@ -125,7 +124,18 @@ namespace MultiTenancy.Api.Core.Extensions
 
         public static void AddUseCaseHandlers(this WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IUseCaseHandler<ExecuteTestUseCase, Empty>, ExecuteTestUseCaseHandler>();
+            var type = typeof(IUseCaseHandler);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract && p.Namespace.StartsWith("MultiTenancy.Implementation.UseCases.Handlers"));
+
+            foreach (var t in types)
+            {
+                if (t.BaseType != null)
+                {
+                    builder.Services.AddTransient(t.BaseType, t);
+                }
+            }
         }
     }
 }
