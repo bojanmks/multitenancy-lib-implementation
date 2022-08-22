@@ -49,7 +49,9 @@ namespace MultiTenancy.Api.Core.Extensions
         {
             builder.Services.AddTransient(x =>
             {
-                return new JwtManager(settings.JwtSettings);
+                var context = x.GetService<ShopDbContext>();
+
+                return new JwtManager(settings.JwtSettings, context);
             });
 
 

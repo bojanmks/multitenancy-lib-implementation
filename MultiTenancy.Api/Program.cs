@@ -14,8 +14,8 @@ builder.Configuration.Bind(appSettings);
 builder.Services.AddSingleton(appSettings);
 
 builder.AddApplicationActor();
-builder.AddJwt(appSettings);
 builder.AddDbContext(appSettings);
+builder.AddJwt(appSettings);
 builder.AddUseCaseValidators();
 builder.AddUseCaseHandlers();
 

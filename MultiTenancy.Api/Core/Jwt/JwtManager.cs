@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using MultiTenancy.DataAccess;
 using MultiTenancy.Domain.Enums;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,41 +12,38 @@ namespace MultiTenancy.Api.Core.Jwt
     public class JwtManager
     {
         private readonly JwtSettings _settings;
+        private readonly ShopDbContext _context;
 
-        public JwtManager(JwtSettings settings)
+        public JwtManager(JwtSettings settings, ShopDbContext context)
         {
             _settings = settings;
+            _context = context;
         }
 
         public string MakeToken(string email, string password)
         {
-            // var user = _context.Users.Include(x => x.UseCases).FirstOrDefault(x => x.Email == email);
+            var user = _context.Users.Include(x => x.UseCases).FirstOrDefault(x => x.Email == email);
 
-            //if (user == null)
-            //{
-            //    throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
-            //}
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
+            }
 
-            //var valid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            var valid = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
-            //if (!valid)
-            //{
-            //    throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
-            //}
-
-            //if (!user.IsActive.Value)
-            //{
-            //    throw new UnauthorizedAccessException("Your account is deactivated, please contact us for more info.");
-            //}
+            if (!valid)
+            {
+                throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
+            }
 
             var appUser = new ApplicationUser
             {
-                UserId = 1,
-                TenantId = 1,
-                Username = "User1",
-                Email = "u1@gmail.com",
-                Role = UserRole.SuperUserGlobal,
-                UseCaseIds = new List<string> { "SearchTestUseCase", "FindTestUseCase", "AddTestUseCase", "UpdateTestUseCase", "DeleteTestUseCase", "ExecuteTestUseCase" }
+                UserId = user.Id,
+                TenantId = user.TenantId,
+                Username = user.Username,
+                Email = user.Email,
+                Role = (UserRole)user.RoleId,
+                UseCaseIds = user.UseCases.Select(x => x.UseCaseId).ToList()
             };
 
             var claims = new List<Claim>
