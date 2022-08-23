@@ -55,6 +55,24 @@ namespace MultiTenancy.Api.Core.Middleware
                     };
                 }
 
+                if(ex is SortPropertyAlreadyExistsException sortPropEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = sortPropEx.Message };
+                }
+
+                if (ex is InvalidSortFormatException sortFormatEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = sortFormatEx.Message };
+                }
+
+                if (ex is InvalidSortDirectionException sortDirectionEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = sortDirectionEx.Message };
+                }
+
                 if (ex is UseCaseConflictException conflictEx)
                 {
                     statusCode = StatusCodes.Status409Conflict;

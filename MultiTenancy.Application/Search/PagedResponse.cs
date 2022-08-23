@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Application.Search
 {
-    public interface ISearchObject
+    public class PagedResponse<T>
     {
         public int Page { get; set; }
         public int PerPage { get; set; }
-        public bool Paginate { get; set; }
-        public string SortBy { get; set; }
-        public Dictionary<string, string> CustomSortBy { get; set; }
+        public int TotalCount { get; set; }
+        public IEnumerable<T> Items { get; set; }
     }
 }

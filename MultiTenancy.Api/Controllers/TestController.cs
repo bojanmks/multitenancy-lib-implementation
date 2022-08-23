@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiTenancy.Application.DTO;
 using MultiTenancy.Application.Search;
+using MultiTenancy.Application.Search.SearchObjects;
 using MultiTenancy.Application.UseCases;
 using MultiTenancy.Application.UseCases.Test;
 using MultiTenancy.DataAccess;

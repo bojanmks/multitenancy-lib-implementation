@@ -1,5 +1,6 @@
 ﻿using MultiTenancy.Application.DTO;
 using MultiTenancy.Application.Search;
+using MultiTenancy.Application.Search.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

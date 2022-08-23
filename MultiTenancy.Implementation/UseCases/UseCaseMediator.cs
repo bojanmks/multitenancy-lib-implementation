@@ -6,9 +6,11 @@ using MultiTenancy.Application.DTO;
 using MultiTenancy.Application.Exceptions;
 using MultiTenancy.Application.Logging;
 using MultiTenancy.Application.Search;
+using MultiTenancy.Application.Search.Attributes;
 using MultiTenancy.Application.UseCases;
 using MultiTenancy.DataAccess;
 using MultiTenancy.Domain;
+using MultiTenancy.Implementation.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,7 +44,25 @@ namespace MultiTenancy.Implementation.UseCases
         {
             ValidateAndLog<TUseCase, TSearch>(useCase);
 
-            return _context.Set<TEntity>().Select(x => _mapper.Map<TData>(x)).ToList();
+            var query = _context.Set<TEntity>().AsQueryable();
+
+            var searchObj = useCase.Data;
+
+            query = searchObj.BuildQuery(query);
+            query = searchObj.BuildOrderBy(query);
+
+            if(searchObj.Paginate)
+            {
+                return new PagedResponse<TData>
+                {
+                    Page = searchObj.Page,
+                    PerPage = searchObj.PerPage,
+                    TotalCount = query.Count(),
+                    Items = _mapper.Map<IEnumerable<TData>>(query.Skip((searchObj.Page - 1) * searchObj.PerPage).Take(searchObj.PerPage).ToList())
+                };
+            }
+
+            return _mapper.Map<IEnumerable<TData>>(query.ToList());
         }
 
         public TData Find<TUseCase, TData, TEntity>(TUseCase useCase)
