@@ -12,7 +12,7 @@ namespace MultiTenancy.Application.Search.SearchObjects
     {
         public TestSearch()
         {
-            AddCustomSortElement("customSortTest", "x => x.Name");
+            AddCustomSortProperty("customSortTest", "x => x.Name");
         }
 
         [QueryProperty(ComparisonType.LessThanOrEqual, "Id")]

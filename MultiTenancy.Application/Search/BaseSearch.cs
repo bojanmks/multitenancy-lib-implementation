@@ -15,7 +15,7 @@ namespace MultiTenancy.Application.Search
         public string SortBy { get; set; } = "";
         public Dictionary<string, string> CustomSortBy { get; set; } = new Dictionary<string, string>();
 
-        protected void AddCustomSortElement(string key, string query)
+        protected void AddCustomSortProperty(string key, string query)
         {
             if (CustomSortBy.ContainsKey(key))
             {
