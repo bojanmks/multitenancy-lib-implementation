@@ -73,6 +73,12 @@ namespace MultiTenancy.Api.Core.Middleware
                     response = new { message = sortDirectionEx.Message };
                 }
 
+                if(ex is PropertyNotFoundException propNotFoundEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = propNotFoundEx.Message };
+                }
+
                 if (ex is UseCaseConflictException conflictEx)
                 {
                     statusCode = StatusCodes.Status409Conflict;

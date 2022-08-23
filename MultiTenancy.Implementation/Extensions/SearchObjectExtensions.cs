@@ -66,7 +66,7 @@ namespace MultiTenancy.Implementation.Extensions
                 {
                     var propAndDirection = arg.Split('.');
 
-                    if(propAndDirection.Count() < 2)
+                    if(propAndDirection.Count() != 2)
                     {
                         throw new InvalidSortFormatException();
                     }
@@ -82,6 +82,11 @@ namespace MultiTenancy.Implementation.Extensions
 
                         orderByClause += $"{customSortBy} {propAndDirection[1]},";
                         continue;
+                    }
+
+                    if(!typeof(T).GetProperties().Any(x => x.Name.ToLower() == propAndDirection[0].ToLower()))
+                    {
+                        throw new PropertyNotFoundException(propAndDirection[0]);
                     }
 
                     orderByClause += $"{propAndDirection[0]} {propAndDirection[1]},";
