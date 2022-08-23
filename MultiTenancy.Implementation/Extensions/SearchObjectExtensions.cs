@@ -46,25 +46,11 @@ namespace MultiTenancy.Implementation.Extensions
 
                 if(value == null) continue;
 
-                var attributes = p.GetCustomAttributes(true);
+                var attributes = p.GetCustomAttributes(true).Where(x => x is BaseSearchAttribute);
 
                 foreach (var attr in attributes)
                 {
-                    if(attr is WithAnyPropertyAttribute wp)
-                    {
-                        var comparisonType = wp.ComparisonType;
-                        var properties = wp.Properties;
-
-                        List<string> expressions = new List<string>();
-
-                        foreach (var prop in properties)
-                        {
-                            expressions.Add(GetComparisonStringAnyProperty(prop, value, comparisonType));
-                        }
-
-                        query = query.Where("y => " + string.Join(" || ", expressions));
-                    }
-                    else if (attr is QueryPropertyAttribute qp)
+                    if (attr is QueryPropertyAttribute qp)
                     {
                         var comparisonType = qp.ComparisonType;
                         var properties = qp.Properties;
@@ -73,10 +59,20 @@ namespace MultiTenancy.Implementation.Extensions
 
                         foreach (var prop in properties)
                         {
+                            if(attr is WithAnyPropertyAttribute)
+                            {
+                                expressions.Add(GetComparisonStringAnyProperty(prop, value, comparisonType));
+                                continue;
+                            }
+
                             expressions.Add(GetComparisonString(prop, value, comparisonType));
                         }
 
-                        query = query.Where("x => " + string.Join(" || ", expressions));
+                        string separator = attr is IAndAttribute ? " && " : " || ";
+
+                        query = attr is WithAnyPropertyAttribute ? 
+                            query.Where("y => " + string.Join(separator, expressions)) : 
+                            query.Where("x => " + string.Join(separator, expressions));
                     }
                 }
             }

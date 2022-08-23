@@ -13,4 +13,10 @@ namespace MultiTenancy.Application.Search.Attributes
         {
         }
     }
+    public class WithAnyPropertyAndAttribute : QueryPropertyAttribute, IAndAttribute
+    {
+        public WithAnyPropertyAndAttribute(ComparisonType comparisonType, params string[] properties) : base(comparisonType, properties)
+        {
+        }
+    }
 }

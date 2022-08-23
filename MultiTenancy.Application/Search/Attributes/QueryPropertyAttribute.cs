@@ -18,4 +18,11 @@ namespace MultiTenancy.Application.Search.Attributes
 
         public IEnumerable<string> Properties => _properties;
     }
+
+    public class QueryPropertyAndAttribute : QueryPropertyAttribute, IAndAttribute
+    {
+        public QueryPropertyAndAttribute(ComparisonType comparisonType, params string[] properties) : base(comparisonType, properties)
+        {
+        }
+    }
 }
