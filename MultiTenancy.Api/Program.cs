@@ -2,6 +2,7 @@ using MultiTenancy.Api.Core;
 using MultiTenancy.Api.Core.Extensions;
 using MultiTenancy.Api.Core.Middleware;
 using MultiTenancy.Application.Logging;
+using MultiTenancy.Implementation;
 using MultiTenancy.Implementation.Logging;
 using MultiTenancy.Implementation.UseCases;
 
@@ -48,5 +49,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+ServiceProviderActivator.SetUpProvider(app.Services);
 
 app.Run();

@@ -1,4 +1,6 @@
-﻿using MultiTenancy.Application.Exceptions;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using MultiTenancy.Application.Exceptions;
 using MultiTenancy.Application.Search;
 using MultiTenancy.Application.Search.Attributes;
 using MultiTenancy.Application.Search.Enums;
@@ -13,6 +15,27 @@ namespace MultiTenancy.Implementation.Extensions
 {
     public static class SearchObjectExtensions
     {
+        private static IMapper Mapper => ServiceProviderActivator.Provider.GetService<IMapper>();
+
+        public static object BuildDynamicQuery<T, TData>(this ISearchObject search, IQueryable<T> query)
+        {
+            query = search.BuildQuery(query);
+            query = search.BuildOrderBy(query);
+
+            if (search.Paginate)
+            {
+                return new PagedResponse<TData>
+                {
+                    Page = search.Page,
+                    PerPage = search.PerPage,
+                    TotalCount = query.Count(),
+                    Items = Mapper.Map<IEnumerable<TData>>(query.Skip((search.Page - 1) * search.PerPage).Take(search.PerPage).ToList())
+                };
+            }
+
+            return Mapper.Map<IEnumerable<TData>>(query.ToList());
+        }
+
         public static IQueryable<T> BuildQuery<T>(this ISearchObject search, IQueryable<T> query)
         {
             var searchObjProperties = search.GetType().GetProperties();
@@ -32,25 +55,40 @@ namespace MultiTenancy.Implementation.Extensions
                         var comparisonType = wp.ComparisonType;
                         var properties = wp.Properties;
 
+                        List<string> expressions = new List<string>();
+
                         foreach (var prop in properties)
                         {
-                            query = query.Where(GetComparisonStringAnyProperty(prop, value, comparisonType));
+                            expressions.Add(GetComparisonStringAnyProperty(prop, value, comparisonType));
                         }
+
+                        query = query.Where("y => " + string.Join(" || ", expressions));
                     }
                     else if (attr is QueryPropertyAttribute qp)
                     {
                         var comparisonType = qp.ComparisonType;
                         var properties = qp.Properties;
 
+                        List<string> expressions = new List<string>();
+
                         foreach (var prop in properties)
                         {
-                            query = query.Where(GetComparisonString(prop, value, comparisonType));
+                            expressions.Add(GetComparisonString(prop, value, comparisonType));
                         }
+
+                        query = query.Where("x => " + string.Join(" || ", expressions));
                     }
                 }
             }
 
             return query;
+        }
+
+        public static IEnumerable<TData> BuildQuery<T, TData>(this ISearchObject search, IQueryable<T> query)
+        {
+            query = search.BuildQuery(query);
+
+            return Mapper.Map<IEnumerable<TData>>(query.ToList());
         }
 
         public static IQueryable<T> BuildOrderBy<T>(this ISearchObject search, IQueryable<T> query)
@@ -100,6 +138,13 @@ namespace MultiTenancy.Implementation.Extensions
             return query;
         }
 
+        public static IEnumerable<TData> BuildOrderBy<T, TData>(this ISearchObject search, IQueryable<T> query)
+        {
+            query = search.BuildOrderBy(query);
+
+            return Mapper.Map<IEnumerable<TData>>(query.ToList());
+        }
+
         private static IEnumerable<string> SortDirections = new List<string> { "asc", "desc" };
 
         private static string GetComparisonString(string property, object value, ComparisonType comparisonType)
@@ -107,25 +152,25 @@ namespace MultiTenancy.Implementation.Extensions
             switch(comparisonType)
             {
                 case ComparisonType.Equals:
-                    return $"x => x.{property} == {FormatValue(value)}";
+                    return $"x.{property} == {FormatValue(value)}";
                     break;
                 case ComparisonType.Contains:
-                    return $"x => x.{property}.Contains({FormatValue(value)})";
+                    return $"x.{property}.Contains({FormatValue(value)})";
                     break;
                 case ComparisonType.LessThan:
-                    return $"x => x.{property} < {FormatValue(value)}";
+                    return $"x.{property} < {FormatValue(value)}";
                     break;
                 case ComparisonType.LessThanOrEqual:
-                    return $"x => x.{property} <= {FormatValue(value)}";
+                    return $"x.{property} <= {FormatValue(value)}";
                     break;
                 case ComparisonType.GreaterThan:
-                    return $"x => x.{property} > {FormatValue(value)}";
+                    return $"x.{property} > {FormatValue(value)}";
                     break;
                 case ComparisonType.GreaterThanOrEqual:
-                    return $"x => x.{property} >= {FormatValue(value)}";
+                    return $"x.{property} >= {FormatValue(value)}";
                     break;
                 default:
-                    return $"x => x.{property} == {FormatValue(value)}";
+                    return $"x.{property} == {FormatValue(value)}";
             }
         }
 
@@ -134,7 +179,7 @@ namespace MultiTenancy.Implementation.Extensions
             string originalProp = property.Substring(0, property.IndexOf('.'));
             string nestedProps = property.Substring(property.IndexOf('.') + 1);
 
-            return $"y => y.{originalProp}.Any({GetComparisonString(nestedProps, value, comparisonType)})";
+            return $"y.{originalProp}.Any({GetComparisonString(nestedProps, value, comparisonType)})";
         }
 
         private static object FormatValue(object value)

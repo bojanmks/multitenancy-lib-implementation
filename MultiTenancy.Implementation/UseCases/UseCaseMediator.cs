@@ -48,21 +48,7 @@ namespace MultiTenancy.Implementation.UseCases
 
             var searchObj = useCase.Data;
 
-            query = searchObj.BuildQuery(query);
-            query = searchObj.BuildOrderBy(query);
-
-            if(searchObj.Paginate)
-            {
-                return new PagedResponse<TData>
-                {
-                    Page = searchObj.Page,
-                    PerPage = searchObj.PerPage,
-                    TotalCount = query.Count(),
-                    Items = _mapper.Map<IEnumerable<TData>>(query.Skip((searchObj.Page - 1) * searchObj.PerPage).Take(searchObj.PerPage).ToList())
-                };
-            }
-
-            return _mapper.Map<IEnumerable<TData>>(query.ToList());
+            return searchObj.BuildDynamicQuery<TEntity, TData>(query);
         }
 
         public TData Find<TUseCase, TData, TEntity>(TUseCase useCase)
