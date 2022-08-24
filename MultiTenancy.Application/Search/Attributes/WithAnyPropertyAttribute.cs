@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Application.Search.Attributes
 {
-    public class WithAnyPropertyAttribute : QueryPropertyAttribute
+    public class WithAnyPropertyAttribute : BaseSearchAttribute
     {
-        public WithAnyPropertyAttribute(ComparisonType comparisonType, params string[] properties) : base(comparisonType, properties)
+        private readonly string _collection;
+        private readonly string _property;
+        public WithAnyPropertyAttribute(ComparisonType comparisonType, string collection, string property)
+            : base(comparisonType)
         {
+            _collection = collection;
+            _property = property;
         }
-    }
-    public class WithAnyPropertyAndAttribute : QueryPropertyAttribute, IAndAttribute
-    {
-        public WithAnyPropertyAndAttribute(ComparisonType comparisonType, params string[] properties) : base(comparisonType, properties)
-        {
-        }
+
+        public string Collection => _collection;
+        public string Property => _property;
     }
 }

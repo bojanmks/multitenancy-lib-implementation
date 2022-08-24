@@ -55,31 +55,32 @@ namespace MultiTenancy.Implementation.Extensions
 
                 var attributes = p.GetCustomAttributes(true).Where(x => x is BaseSearchAttribute);
 
-                foreach (var attr in attributes)
+                foreach (BaseSearchAttribute attr in attributes)
                 {
+                    var comparisonType = attr.ComparisonType;
+
                     if (attr is QueryPropertyAttribute qp)
                     {
-                        var comparisonType = qp.ComparisonType;
                         var properties = qp.Properties;
 
                         List<string> expressions = new List<string>();
 
                         foreach (var prop in properties)
                         {
-                            if(attr is WithAnyPropertyAttribute)
-                            {
-                                expressions.Add(GetComparisonStringAnyProperty(prop, value, comparisonType));
-                                continue;
-                            }
-
                             expressions.Add(GetComparisonString(prop, value, comparisonType));
                         }
 
                         string separator = attr is IAndAttribute ? " && " : " || ";
 
-                        query = attr is WithAnyPropertyAttribute ? 
-                            query.Where("y => " + string.Join(separator, expressions)) : 
-                            query.Where("x => " + string.Join(separator, expressions));
+                        query = query.Where("x => " + string.Join(separator, expressions));
+                    }
+
+                    if(attr is WithAnyPropertyAttribute wp)
+                    {
+                        var collection = wp.Collection;
+                        var property = wp.Property;
+
+                        query = query.Where("y => " + GetComparisonStringAnyProperty(collection, property, value, comparisonType));
                     }
                 }
             }
@@ -177,12 +178,9 @@ namespace MultiTenancy.Implementation.Extensions
             }
         }
 
-        private static string GetComparisonStringAnyProperty(string property, object value, ComparisonType comparisonType)
+        private static string GetComparisonStringAnyProperty(string collection, string property, object value, ComparisonType comparisonType)
         {
-            string originalProp = property.Substring(0, property.IndexOf('.'));
-            string nestedProps = property.Substring(property.IndexOf('.') + 1);
-
-            return $"y.{originalProp}.Any({GetComparisonString(nestedProps, value, comparisonType)})";
+            return $"y.{collection}.Any(x => {GetComparisonString(property, value, comparisonType)})";
         }
 
         private static object FormatValue(object value)
