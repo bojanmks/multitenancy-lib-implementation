@@ -22,6 +22,13 @@ namespace MultiTenancy.Implementation.Extensions
             query = search.BuildQuery(query);
             query = search.BuildOrderBy(query);
 
+            var response = search.BuildResponse<T, TData>(query);
+
+            return response;
+        }
+
+        public static object BuildResponse<T, TData>(this ISearchObject search, IQueryable<T> query)
+        {
             if (search.Paginate)
             {
                 return new PagedResponse<TData>
