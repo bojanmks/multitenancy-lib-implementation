@@ -7,9 +7,9 @@ namespace MultiTenancy.Api.Core
     {
         private static Dictionary<UserRole, Type> Map => new Dictionary<UserRole, Type>
         {
-            { UserRole.User, typeof(ApplicationUser) },
+            { UserRole.SuperUserGlobal, typeof(ApplicationSuperUserGlobal) },
             { UserRole.SuperUserTenant, typeof(ApplicationSuperUserTenant) },
-            { UserRole.SuperUserGlobal, typeof(ApplicationSuperUserGlobal) }
+            { UserRole.User, typeof(ApplicationUser) }
         };
 
         public static Type GetType(UserRole role) => Map[role];

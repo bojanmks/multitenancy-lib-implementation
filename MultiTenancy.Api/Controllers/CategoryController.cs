@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiTenancy.Application.DTO;
+using MultiTenancy.Application.Search.SearchObjects;
+using MultiTenancy.Application.UseCases.Categories;
 using MultiTenancy.Application.UseCases.Category;
 using MultiTenancy.Domain;
 using MultiTenancy.Implementation.UseCases;
@@ -18,40 +20,35 @@ namespace MultiTenancy.Api.Controllers
             _mediator = mediator;
         }
 
-        //// GET: api/<CategoryController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpGet]
+        public IActionResult Get([FromQuery] CategorySearch search)
+        {
+            return Ok(_mediator.Search<SearchCategoriesUseCase, CategorySearch, CategoryDto, Category>(new SearchCategoriesUseCase(search)));
+        }
 
-        //// GET api/<CategoryController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_mediator.Find<FindCategoryUseCase, CategoryDto, Category>(new FindCategoryUseCase(id)));
+        }
 
-
-        // POST api/<CategoryController>
         [HttpPost]
         public void Post([FromBody] CategoryDto dto)
         {
             _mediator.Insert<AddCategoryUseCase, CategoryDto, Category>(new AddCategoryUseCase(dto));
-
         }
 
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] CategoryDto dto)
+        {
+            dto.Id = id;
+            _mediator.Update<EditCategoryUseCase, CategoryDto, Category>(new EditCategoryUseCase(dto));
+        }
 
-        //// PUT api/<CategoryController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<CategoryController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _mediator.Delete<DeleteCategoryUseCase, Category>(new DeleteCategoryUseCase(id));
+        }
     }
 }
