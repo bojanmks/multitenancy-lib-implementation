@@ -15,7 +15,7 @@ namespace MultiTenancy.DataAccess.Configuration
         protected override void ConfigureConstraints(EntityTypeBuilder<Specification> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(30).IsRequired();
-            builder.HasIndex(x => x.Name).IsUnique();
+            // builder.HasIndex(x => x.Name).IsUnique();
 
             builder.HasMany(x => x.CategorySpecifications).WithOne(x => x.Specification).HasForeignKey(x => x.SpecificationId).OnDelete(DeleteBehavior.Restrict);
         }

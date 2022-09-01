@@ -16,7 +16,7 @@ namespace MultiTenancy.DataAccess.Configuration
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Description).IsRequired();
 
-            builder.HasIndex(x => x.Name).IsUnique();
+            // builder.HasIndex(x => x.Name).IsUnique();
 
             builder.HasMany(x => x.ProductSpecifications).WithOne(x => x.Product).HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Restrict);
         }

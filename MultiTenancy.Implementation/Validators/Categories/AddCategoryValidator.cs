@@ -19,6 +19,16 @@ namespace MultiTenancy.Implementation.Validators.Categories
                 .WithMessage("Category name is required.")
                 .Must(x => !context.Categories.Any(y => y.Name == x))
                 .WithMessage("Category with the name {PropertyValue} already exists.");
+
+            When(x => x.Data.SpecificationIds != null, () =>
+            {
+                RuleFor(x => x.Data.SpecificationIds)
+                .Cascade(CascadeMode.Stop)
+                .Must(specificationIds => specificationIds.All(id => context.Specifications.Any(x => x.Id == id)))
+                .WithMessage("Some of the specifications provided do not exist.")
+                .Must(specificationIds => specificationIds.Count() == specificationIds.Distinct().Count())
+                .WithMessage("Specification Ids must be unique.");
+            });
         }
     }
 }

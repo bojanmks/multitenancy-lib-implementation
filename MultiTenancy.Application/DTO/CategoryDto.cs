@@ -9,5 +9,6 @@ namespace MultiTenancy.Application.DTO
     public class CategoryDto : BaseDto
     {
         public string Name { get; set; }
+        public IEnumerable<int> SpecificationIds { get; set; }
     }
 }

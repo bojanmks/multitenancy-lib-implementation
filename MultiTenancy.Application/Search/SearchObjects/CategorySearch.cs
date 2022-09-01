@@ -11,6 +11,6 @@ namespace MultiTenancy.Application.Search.SearchObjects
     public class CategorySearch : BaseSearch
     {
         [QueryProperty(ComparisonType.Contains, "Name")]
-        public string? Name { get; set; }
+        public string? Keyword { get; set; }
     }
 }

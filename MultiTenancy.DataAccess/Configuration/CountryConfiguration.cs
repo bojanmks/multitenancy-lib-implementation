@@ -13,7 +13,7 @@ namespace MultiTenancy.DataAccess.Configuration
         protected override void ConfigureConstraints(EntityTypeBuilder<Country> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
-            builder.HasIndex(x => x.Name).IsUnique();
+            // builder.HasIndex(x => x.Name).IsUnique();
         }
     }
 }

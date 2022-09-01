@@ -17,8 +17,8 @@ namespace MultiTenancy.DataAccess.Configuration
             builder.Property(x => x.Username).HasMaxLength(30).IsRequired();
             builder.Property(x => x.Password).HasMaxLength(100).IsRequired();
 
-            builder.HasIndex(x => x.Email).IsUnique();
-            builder.HasIndex(x => x.Username).IsUnique();
+            // builder.HasIndex(x => x.Email).IsUnique();
+            // builder.HasIndex(x => x.Username).IsUnique();
 
             builder.HasMany(x => x.Addresses).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.CartItems).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);

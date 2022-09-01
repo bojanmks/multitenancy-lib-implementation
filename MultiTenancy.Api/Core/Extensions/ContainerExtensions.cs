@@ -125,9 +125,16 @@ namespace MultiTenancy.Api.Core.Extensions
 
             foreach (var t in types)
             {
-                if (t.BaseType != null)
+                var baseType = t.BaseType;
+
+                if (baseType != null)
                 {
-                    builder.Services.AddTransient(t.BaseType, t);
+                    while(baseType.BaseType != null && baseType.BaseType.FullName != "System.Object")
+                    {
+                        baseType = baseType.BaseType;
+                    }
+
+                    builder.Services.AddTransient(baseType, t);
                 }
             }
         }

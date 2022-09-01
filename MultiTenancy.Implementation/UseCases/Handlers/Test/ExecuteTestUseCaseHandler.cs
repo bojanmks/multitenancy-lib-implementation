@@ -10,12 +10,10 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Implementation.UseCases.Handlers.Test
 {
-    public class ExecuteTestUseCaseHandler : UseCaseHandler<ExecuteTestUseCase, Empty>
+    public class ExecuteTestUseCaseHandler : EfUseCaseHandler<ExecuteTestUseCase, Empty>
     {
-        private readonly ShopDbContext _context;
-        public ExecuteTestUseCaseHandler(ShopDbContext context)
+        public ExecuteTestUseCaseHandler(ShopDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public override Empty Handle(ExecuteTestUseCase useCase)

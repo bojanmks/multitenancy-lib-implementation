@@ -154,9 +154,6 @@ namespace MultiTenancy.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.HasIndex("TenantId");
 
                     b.ToTable("Categories");
@@ -183,7 +180,9 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("SpecificationId")
                         .HasColumnType("int");
@@ -192,7 +191,8 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -238,9 +238,6 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Countries");
                 });
@@ -436,9 +433,6 @@ namespace MultiTenancy.Api.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Products");
                 });
 
@@ -529,9 +523,6 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.HasIndex("TenantId");
 
@@ -712,13 +703,7 @@ namespace MultiTenancy.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.HasIndex("TenantId");
-
-                    b.HasIndex("Username")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });
