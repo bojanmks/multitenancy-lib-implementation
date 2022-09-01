@@ -16,7 +16,7 @@ namespace MultiTenancy.Api.Controllers
     public class ImagesController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromForm] ImageDtoApi dto, [FromServices] UseCaseMediator mediator)
+        public IActionResult Post([FromForm] ImageDtoApi dto, [FromServices] UseCaseMediator mediator)
         {
             if (dto.ImageFile != null)
             {
@@ -27,7 +27,7 @@ namespace MultiTenancy.Api.Controllers
                 throw new UnprocessableEntityException("Image wasn't provided.");
             }
 
-            mediator.Insert<AddImageUseCase, ImageDto, Image>(new AddImageUseCase(dto));
+            return Ok(mediator.Execute<AddImageUseCase, ImageDto, ImageDto>(new AddImageUseCase(dto)));
         }
     }
 }
