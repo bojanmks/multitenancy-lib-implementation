@@ -24,9 +24,22 @@ namespace MultiTenancy.Api.Core.Extensions
 
                 var claims = accessor.HttpContext?.User;
 
+                var tenantIdHeader = accessor.HttpContext?.Request.Headers.FirstOrDefault(x => x.Key == "TenantId");
+                int tenantId = 0;
+
+                if(tenantIdHeader.Value.Value.Count() == 1)
+                {
+                    int.TryParse(tenantIdHeader.Value.Value.First(), out tenantId);
+                }
+
+                var anonymousUser = new AnonymousUser()
+                {
+                    TenantId = tenantId
+                };
+
                 if (claims == null || claims.FindFirst("UserId") == null)
                 {
-                    return new AnonymousUser();
+                    return anonymousUser;
                 }
 
                 var role = Enum.Parse<UserRole>(claims.FindFirst("Role").Value);
@@ -36,11 +49,16 @@ namespace MultiTenancy.Api.Core.Extensions
                 var user = Activator.CreateInstance(userType) as ApplicationUser;
 
                 user.UserId = Int32.Parse(claims.FindFirst("UserId").Value);
-                user.TenantId = Int32.Parse(claims.FindFirst("UserId").Value);
+                user.TenantId = Int32.Parse(claims.FindFirst("TenantId").Value);
                 user.Username = claims.FindFirst("Username").Value;
                 user.Email = claims.FindFirst("Email").Value;
                 user.Role = role;
                 user.UseCaseIds = JsonConvert.DeserializeObject<List<string>>(claims.FindFirst("UseCases").Value);
+
+                if(user.Role != UserRole.SuperUserGlobal && user.TenantId != tenantId)
+                {
+                    return anonymousUser;
+                }
 
                 return user;
             });

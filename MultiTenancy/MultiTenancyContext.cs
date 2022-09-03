@@ -55,7 +55,11 @@ namespace MultiTenancy
                     switch (entry.State)
                     {
                         case EntityState.Added:
-                            e.TenantId = _user.TenantId;
+                            if(!(_user is IApplicationSuperUserGlobal))
+                            {
+                                e.TenantId = _user.TenantId;
+                            }
+
                             break;
                     }
                 }

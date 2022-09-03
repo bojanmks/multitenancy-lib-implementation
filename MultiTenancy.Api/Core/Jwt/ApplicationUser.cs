@@ -27,7 +27,7 @@ namespace MultiTenancy.Api.Core.Jwt
     public class AnonymousUser : IApplicationActor
     {
         public int UserId => 0;
-        public int TenantId => 0;
+        public int TenantId { get; set; } = 0;
         public string Username => null;
         public string Email => null;
         public UserRole Role => UserRole.Anonymous;

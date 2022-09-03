@@ -23,8 +23,6 @@ namespace MultiTenancy.Api.Core.Jwt
         public string MakeToken(string email, string password)
         {
             var user = _context.Users
-                .IgnoreQueryFilters()
-                .Where(x => x.IsActive.Value)
                 .Include(x => x.UseCases)
                 .FirstOrDefault(x => x.Email == email);
 
