@@ -55,7 +55,7 @@ namespace MultiTenancy.Api.Core.Extensions
                 user.Role = role;
                 user.UseCaseIds = JsonConvert.DeserializeObject<List<string>>(claims.FindFirst("UseCases").Value);
 
-                if(user.Role != UserRole.SuperUserGlobal && user.TenantId != tenantId)
+                if(user.TenantId != tenantId)
                 {
                     return anonymousUser;
                 }

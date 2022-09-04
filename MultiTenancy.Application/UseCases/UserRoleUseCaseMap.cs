@@ -15,12 +15,15 @@ namespace MultiTenancy.Application.UseCases
                                                            "FindCategoryUseCase", "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase",
                                                            "FindProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "SearchSpecificationsUseCase",
                                                            "FindSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase" } },
+
             { UserRole.SuperUserTenant, new List<string> { "SearchTestUseCase", "SearchCategoriesUseCase", "FindCategoryUseCase", "AddCategoryUseCase",
                                                            "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase", "FindProductUseCase",
                                                            "AddProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "AddImageUseCase", "SearchSpecificationsUseCase",
                                                            "FindSpecificationUseCase", "AddSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase" } },
+
             { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase" } },
-            { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase" } }
+
+            { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "RegisterUseCase" } }
         };
 
         public static IEnumerable<string> GetUseCases(UserRole role) => Map[role];
