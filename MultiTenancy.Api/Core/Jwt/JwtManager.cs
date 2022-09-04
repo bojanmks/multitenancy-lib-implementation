@@ -30,7 +30,7 @@ namespace MultiTenancy.Api.Core.Jwt
             {
                 throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
             }
-
+            
             var valid = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
             if (!valid)

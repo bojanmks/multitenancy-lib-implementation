@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiTenancy.Domain;
 using MultiTenency.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MultiTenancy.DataAccess.Extensions;
+using MultiTenancy.Domain;
 
 namespace MultiTenancy.DataAccess
 {
@@ -18,8 +19,8 @@ namespace MultiTenancy.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.SeedData();
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
             AddQueryFilterEntry<Entity>(e => e.IsActive.Value);
 
             base.OnModelCreating(modelBuilder);
