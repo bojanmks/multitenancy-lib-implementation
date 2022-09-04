@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using MultiTenancy.Api.Core.Exceptions;
 using MultiTenancy.Application.Exceptions;
 using MultiTenancy.Application.Logging;
 using System.Threading.Tasks;
@@ -83,6 +84,12 @@ namespace MultiTenancy.Api.Core.Middleware
                 {
                     statusCode = StatusCodes.Status409Conflict;
                     response = new { message = conflictEx.Message };
+                }
+
+                if (ex is TenantIdNotProvidedException tenantIdEx)
+                {
+                    statusCode = StatusCodes.Status409Conflict;
+                    response = new { message = tenantIdEx.Message };
                 }
 
                 if (ex is UnauthorizedAccessException unauthEx)

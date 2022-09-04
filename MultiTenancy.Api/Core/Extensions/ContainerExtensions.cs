@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MultiTenancy.Api.Core.Exceptions;
 using MultiTenancy.Api.Core.Jwt;
 using MultiTenancy.Application.UseCases;
 using MultiTenancy.Application.UseCases.Test;
@@ -30,6 +31,11 @@ namespace MultiTenancy.Api.Core.Extensions
                 if(tenantIdHeader.Value.Value.Count() == 1)
                 {
                     int.TryParse(tenantIdHeader.Value.Value.First(), out tenantId);
+                }
+
+                if(tenantId == 0)
+                {
+                    throw new TenantIdNotProvidedException();
                 }
 
                 var anonymousUser = new AnonymousUser()

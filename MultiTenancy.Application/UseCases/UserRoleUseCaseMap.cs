@@ -14,7 +14,8 @@ namespace MultiTenancy.Application.UseCases
             { UserRole.SuperUserGlobal, new List<string> { "SearchTestUseCase", "AddTestUseCase", "ExecuteTestUseCase", "SearchCategoriesUseCase",
                                                            "FindCategoryUseCase", "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase",
                                                            "FindProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "SearchSpecificationsUseCase",
-                                                           "FindSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase" } },
+                                                           "FindSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase", "AddTenantUseCase",
+                                                           "EditTenantUseCase", "DeleteTenantUseCase", "SearchTenantsUseCase", "FindTenantUseCase" } },
 
             { UserRole.SuperUserTenant, new List<string> { "SearchTestUseCase", "SearchCategoriesUseCase", "FindCategoryUseCase", "AddCategoryUseCase",
                                                            "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase", "FindProductUseCase",
