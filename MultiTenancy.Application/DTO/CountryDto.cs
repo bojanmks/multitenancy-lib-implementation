@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiTenancy.Domain
+namespace MultiTenancy.Application.DTO
 {
-    public class Country : Entity
+    public class CountryDto : BaseDto
     {
         public string Name { get; set; }
-
-        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

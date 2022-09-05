@@ -15,16 +15,18 @@ namespace MultiTenancy.Application.UseCases
                                                            "FindCategoryUseCase", "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase",
                                                            "FindProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "SearchSpecificationsUseCase",
                                                            "FindSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase", "AddTenantUseCase",
-                                                           "EditTenantUseCase", "DeleteTenantUseCase", "SearchTenantsUseCase", "FindTenantUseCase" } },
+                                                           "EditTenantUseCase", "DeleteTenantUseCase", "SearchTenantsUseCase", "FindTenantUseCase", "AddCountryUseCase",
+                                                           "EditCountryUseCase", "DeleteCountryUseCase", "SearchCountriesUseCase", "FindCountryUseCase" } },
 
             { UserRole.SuperUserTenant, new List<string> { "SearchTestUseCase", "SearchCategoriesUseCase", "FindCategoryUseCase", "AddCategoryUseCase",
                                                            "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase", "FindProductUseCase",
                                                            "AddProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "AddImageUseCase", "SearchSpecificationsUseCase",
-                                                           "FindSpecificationUseCase", "AddSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase" } },
+                                                           "FindSpecificationUseCase", "AddSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase",
+                                                           "SearchCountriesUseCase" } },
 
-            { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase" } },
+            { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "SearchCountriesUseCase" } },
 
-            { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "RegisterUseCase" } }
+            { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "RegisterUseCase", "SearchCountriesUseCase" } }
         };
 
         public static IEnumerable<string> GetUseCases(UserRole role) => Map[role];

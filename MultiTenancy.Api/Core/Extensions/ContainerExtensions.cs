@@ -25,18 +25,7 @@ namespace MultiTenancy.Api.Core.Extensions
 
                 var claims = accessor.HttpContext?.User;
 
-                var tenantIdHeader = accessor.HttpContext?.Request.Headers.FirstOrDefault(x => x.Key == "TenantId");
-                int tenantId = 0;
-
-                if(tenantIdHeader.Value.Value.Count() == 1)
-                {
-                    int.TryParse(tenantIdHeader.Value.Value.First(), out tenantId);
-                }
-
-                if(tenantId == 0)
-                {
-                    throw new TenantIdNotProvidedException();
-                }
+                var tenantId = GetTenantIdFromHeader(x);
 
                 var anonymousUser = new AnonymousUser()
                 {
@@ -68,6 +57,27 @@ namespace MultiTenancy.Api.Core.Extensions
 
                 return user;
             });
+        }
+
+        private static int GetTenantIdFromHeader(IServiceProvider provider)
+        {
+            var accessor = provider.GetService<IHttpContextAccessor>();
+
+            var tenantIdHeader = accessor.HttpContext?.Request.Headers.FirstOrDefault(x => x.Key == "TenantId");
+            int tenantId = 0;
+            bool tenantIdIsProvided = false;
+
+            if (tenantIdHeader.Value.Value.Count() == 1)
+            {
+                tenantIdIsProvided = int.TryParse(tenantIdHeader.Value.Value.First(), out tenantId);
+            }
+
+            if (!tenantIdIsProvided)
+            {
+                throw new TenantIdNotProvidedException();
+            }
+
+            return tenantId;
         }
 
         public static void AddJwt(this WebApplicationBuilder builder, AppSettings settings)
