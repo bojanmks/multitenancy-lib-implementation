@@ -15,7 +15,9 @@ namespace MultiTenancy.Implementation.Profiles
         {
             CreateMap<Category, CategoryDto>()
                 .ForMember(categoryDto => categoryDto.SpecificationIds,
-                        opts => opts.MapFrom(category => category.CategorySpecifications.Select(x => x.SpecificationId)));
+                        opts => opts.MapFrom(category => category.CategorySpecifications.Select(x => x.SpecificationId)))
+                .ForMember(categoryDto => categoryDto.Specifications,
+                        opts => opts.MapFrom(category => category.CategorySpecifications.Select(x => x.Specification.Name)));
             CreateMap<CategoryDto, Category>();
         }
     }

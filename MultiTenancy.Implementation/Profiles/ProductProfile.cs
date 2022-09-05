@@ -21,7 +21,9 @@ namespace MultiTenancy.Implementation.Profiles
             CreateMap<ProductDto, Product>()
                 .ForMember(product => product.Image, opts => opts.Ignore());
 
-            CreateMap<ProductSpecification, ProductSpecificationDto>();
+            CreateMap<ProductSpecification, ProductSpecificationDto>()
+                .ForMember(productSpecificationDto => productSpecificationDto.Name,
+                        opts => opts.MapFrom(productSpecification => productSpecification.Specification.Name));
             CreateMap<ProductSpecificationDto, ProductSpecification>();
         }
     }
