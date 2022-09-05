@@ -14,6 +14,9 @@ namespace MultiTenancy.Implementation.Profiles
     {
         public UserProfile()
         {
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+
             CreateMap<RegisterDto, User>()
                 .ForMember(user => user.Password,
                         x => x.MapFrom(registerDto => BCrypt.Net.BCrypt.HashPassword(registerDto.Password)))
