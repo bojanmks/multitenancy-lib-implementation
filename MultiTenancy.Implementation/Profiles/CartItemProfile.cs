@@ -15,9 +15,7 @@ namespace MultiTenancy.Implementation.Profiles
         {
             CreateMap<CartItem, CartItemDto>()
                 .ForMember(cartItemDto => cartItemDto.ProductName,
-                    opts => opts.MapFrom(cartItem => cartItem.Product.Name))
-                .ForMember(cartItemDto => cartItemDto.Username,
-                    opts => opts.MapFrom(cartItem => cartItem.User.Username));
+                    opts => opts.MapFrom(cartItem => cartItem.Product.Name));
             CreateMap<CartItemDto, CartItem>()
                 .AfterMap((cartItemDto, cartItem) => cartItem.IsActive = true);
         }
