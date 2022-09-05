@@ -36,6 +36,7 @@ namespace MultiTenancy.DataAccess
                     {
                         case EntityState.Added:
                             e.CreatedAt = DateTime.UtcNow;
+                            //e.IsActive...
                             break;
                         case EntityState.Modified:
                             e.UpdatedAt = DateTime.UtcNow;

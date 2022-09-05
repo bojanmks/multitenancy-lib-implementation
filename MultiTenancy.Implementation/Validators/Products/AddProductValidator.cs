@@ -25,7 +25,7 @@ namespace MultiTenancy.Implementation.Validators.Products
                 .NotEmpty()
                 .WithMessage("Product price is required.")
                 .GreaterThan(0)
-                .WithMessage("Product price need to be greater than 0.");
+                .WithMessage("Product price needs to be greater than 0.");
 
             RuleFor(x => x.Data.Description)
                 .Cascade(CascadeMode.Stop)

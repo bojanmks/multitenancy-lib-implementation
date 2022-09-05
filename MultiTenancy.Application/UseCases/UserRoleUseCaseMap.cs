@@ -24,7 +24,7 @@ namespace MultiTenancy.Application.UseCases
                                                            "FindSpecificationUseCase", "AddSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase",
                                                            "SearchCountriesUseCase" } },
 
-            { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "SearchCountriesUseCase" } },
+            { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "SearchCountriesUseCase", "SearchCartUseCase", "AddCartItemUseCase", "EditCartItemUseCase", "DeleteCartItemUseCase" } },
 
             { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "RegisterUseCase", "SearchCountriesUseCase" } }
         };
