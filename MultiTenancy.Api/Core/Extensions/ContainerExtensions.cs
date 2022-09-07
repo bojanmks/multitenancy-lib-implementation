@@ -5,12 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using MultiTenancy.Api.Core.Exceptions;
 using MultiTenancy.Api.Core.Jwt;
 using MultiTenancy.Application.UseCases;
-using MultiTenancy.Application.UseCases.Test;
 using MultiTenancy.DataAccess;
 using MultiTenancy.Domain;
 using MultiTenancy.Domain.Enums;
-using MultiTenancy.Implementation.UseCases.Handlers.Test;
-using MultiTenancy.Implementation.Validators.Test;
 using Newtonsoft.Json;
 using System.Text;
 

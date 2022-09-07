@@ -24,7 +24,9 @@ namespace MultiTenancy.Implementation.Profiles
                 .ForMember(orderDto => orderDto.Items,
                     opts => opts.MapFrom(order => order.OrderItems))
                 .ForMember(orderDto => orderDto.Status, 
-                    opts => opts.MapFrom(order => Enum.GetName(typeof(OrderStatus), order.StatusId)));
+                    opts => opts.MapFrom(order => Enum.GetName(typeof(OrderStatus), order.StatusId)))
+                .ForMember(orderDto => orderDto.TenantId,
+                    opts => opts.MapFrom(order => order.User.TenantId));
 
             CreateMap<AddOrderDto, Order>()
                 .ForMember(order => order.OrderItems,

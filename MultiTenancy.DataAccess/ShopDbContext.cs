@@ -55,8 +55,6 @@ namespace MultiTenancy.DataAccess
             return base.SaveChanges();
         }
 
-        public DbSet<Test> Test { get; set; }
-
         public DbSet<Tenant> Tenants { get; set; }
 
         public DbSet<Image> Images { get; set; }

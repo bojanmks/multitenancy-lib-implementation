@@ -15,5 +15,8 @@ namespace MultiTenancy.Application.Search.SearchObjects
 
         [QueryProperty(ComparisonType.Equals, "StatusId")]
         public int? StatusId { get; set; }
+
+        [QueryProperty(ComparisonType.Equals, "User.TenantId")]
+        public int? TenantId { get; set; }
     }
 }

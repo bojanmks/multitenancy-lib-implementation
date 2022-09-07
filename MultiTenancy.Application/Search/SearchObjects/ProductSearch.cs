@@ -15,5 +15,8 @@ namespace MultiTenancy.Application.Search.SearchObjects
 
         [QueryProperty(ComparisonType.Equals, "CategoryId")]
         public int? CategoryId { get; set; }
+
+        [QueryProperty(ComparisonType.Equals, "Category.TenantId")]
+        public int? TenantId { get; set; }
     }
 }

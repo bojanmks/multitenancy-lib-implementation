@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Application.DTO
 {
-    public class ProductDto : BaseDto
+    public class ProductDto : TenantOwnedDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

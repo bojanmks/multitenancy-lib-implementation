@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace MultiTenancy.Application.DTO
 {
-    public class OrderDto : BaseDto
+    public class OrderDto : TenantOwnedDto
     {
         public byte StatusId { get; set; }
         public string Status { get; set; }
         public string DeliveryLocation { get; set; }
         public virtual ICollection<OrderItemDto> Items { get; set; }
         public DateTime CreatedAt { get; set; }
+        public int UserId { get; set; }
     }
 
     public class AddOrderDto : BaseDto

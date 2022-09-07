@@ -17,7 +17,9 @@ namespace MultiTenancy.Implementation.Profiles
                 .ForMember(productDto => productDto.Specifications,
                         opts => opts.MapFrom(product => product.ProductSpecifications))
                 .ForMember(productDto => productDto.Image,
-                        opts => opts.MapFrom(product => product.Image.Path));
+                        opts => opts.MapFrom(product => product.Image.Path))
+                .ForMember(productDto => productDto.TenantId,
+                        opts => opts.MapFrom(product => product.Category.TenantId));
             CreateMap<ProductDto, Product>()
                 .ForMember(product => product.Image, opts => opts.Ignore());
 

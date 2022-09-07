@@ -12,5 +12,8 @@ namespace MultiTenancy.Application.Search.SearchObjects
     {
         [QueryProperty(ComparisonType.Contains, "Name")]
         public string? Keyword { get; set; }
+
+        [QueryProperty(ComparisonType.Equals, "TenantId")]
+        public int? TenantId { get; set; }
     }
 }
