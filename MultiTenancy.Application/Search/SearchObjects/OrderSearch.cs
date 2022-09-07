@@ -12,5 +12,8 @@ namespace MultiTenancy.Application.Search.SearchObjects
     {
         [WithAnyProperty(ComparisonType.Contains, "OrderItems", "ProductName")]
         public string? Keyword { get; set; }
+
+        [QueryProperty(ComparisonType.Equals, "StatusId")]
+        public int? StatusId { get; set; }
     }
 }
