@@ -16,8 +16,7 @@ namespace MultiTenancy.Implementation.Profiles
             CreateMap<Address, AddressDto>()
                 .ForMember(addressDto => addressDto.CountryName,
                     opts => opts.MapFrom(address => address.Country.Name));
-            CreateMap<AddressDto, Address>()
-                .AfterMap((addressDto, address) => address.IsActive = true);
+            CreateMap<AddressDto, Address>();
         }
     }
 }

@@ -17,17 +17,17 @@ namespace MultiTenancy.Application.UseCases
                                                            "FindSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase", "AddTenantUseCase",
                                                            "EditTenantUseCase", "DeleteTenantUseCase", "SearchTenantsUseCase", "FindTenantUseCase", "AddCountryUseCase",
                                                            "EditCountryUseCase", "DeleteCountryUseCase", "SearchCountriesUseCase", "FindCountryUseCase", "SearchUsersUseCase",
-                                                           "FindUserUseCase", "AddUserUseCase", "EditUserUseCase", "DeleteUserUseCase" } },
+                                                           "FindUserUseCase", "AddUserUseCase", "EditUserUseCase", "DeleteUserUseCase", "EditOrderUseCase" } },
 
             { UserRole.SuperUserTenant, new List<string> { "SearchTestUseCase", "SearchCategoriesUseCase", "FindCategoryUseCase", "AddCategoryUseCase",
                                                            "EditCategoryUseCase", "DeleteCategoryUseCase", "SearchProductsUseCase", "FindProductUseCase",
                                                            "AddProductUseCase", "EditProductUseCase", "DeleteProductUseCase", "AddImageUseCase", "SearchSpecificationsUseCase",
                                                            "FindSpecificationUseCase", "AddSpecificationUseCase", "EditSpecificationUseCase", "DeleteSpecificationUseCase",
                                                            "SearchCountriesUseCase", "SearchUsersUseCase", "FindUserUseCase", "AddUserUseCase", "EditUserUseCase",
-                                                           "DeleteUserUseCase" } },
+                                                           "DeleteUserUseCase", "EditOrderUseCase" } },
 
             { UserRole.User, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "SearchCountriesUseCase", "SearchCartUseCase", "AddCartItemUseCase",
-                                                "EditCartItemUseCase", "DeleteCartItemUseCase", "SearchAddressesUseCase", "AddAddressUseCase", "DeleteAddressUseCase" } },
+                                                "EditCartItemUseCase", "DeleteCartItemUseCase", "SearchAddressesUseCase", "AddAddressUseCase", "DeleteAddressUseCase", "SearchOrdersUseCase", "FindOrderUseCase", "AddOrderUseCase" } },
 
             { UserRole.Anonymous, new List<string> { "SearchCategoriesUseCase", "SearchProductsUseCase", "RegisterUseCase", "SearchCountriesUseCase" } }
         };

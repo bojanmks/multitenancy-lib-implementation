@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MultiTenancy.Api.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -331,8 +331,8 @@ namespace MultiTenancy.Api.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -399,8 +399,8 @@ namespace MultiTenancy.Api.Migrations
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -601,21 +601,21 @@ namespace MultiTenancy.Api.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "DeletedBy", "DeliveryLocation", "UpdatedAt", "UpdatedBy", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(3990), null, null, "Omladinskih brigada 42, Beograd, Serbia", null, null, 3 },
-                    { 2, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4053), null, null, "Omladinskih brigada 42, Beograd, Serbia", null, null, 3 },
-                    { 3, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4062), null, null, "Takovska 54, Beograd, Serbia", null, null, 4 },
-                    { 4, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4069), null, null, "Meininger Strasse 74, Niederbrombach, Germany", null, null, 5 },
-                    { 5, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4072), null, null, "Meininger Strasse 74, Niederbrombach, Germany", null, null, 5 },
-                    { 6, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4085), null, null, "31 Colorado Way, Wyberton, United Kingdom", null, null, 7 },
-                    { 7, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4088), null, null, "31 Colorado Way, Wyberton, United Kingdom", null, null, 7 },
-                    { 8, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4094), null, null, "27 Terrick Rd, EGGESFORD BARTON, United Kingdom", null, null, 8 },
-                    { 9, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4101), null, null, "92 Castledore Road, Tunstall, United Kingdom", null, null, 9 },
-                    { 10, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4107), null, null, "34 Fox Lane, Blindcrake, United Kingdom", null, null, 9 },
-                    { 11, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4122), null, null, "Roligheten 209, DRAMMEN, Norway", null, null, 11 },
-                    { 12, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4127), null, null, "Roligheten 209, DRAMMEN, Norway", null, null, 11 },
-                    { 13, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4144), null, null, "Tjernveien 95, Oslo, Norway", null, null, 12 },
-                    { 14, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4153), null, null, "Studalsmyro 73, Stord, Norway", null, null, 13 },
-                    { 15, new DateTime(2022, 9, 4, 18, 30, 24, 75, DateTimeKind.Local).AddTicks(4157), null, null, "Studalsmyro 73, Stord, Norway", null, null, 13 }
+                    { 1, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9034), null, null, "Omladinskih brigada 42, Beograd, Serbia", null, null, 3 },
+                    { 2, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9078), null, null, "Omladinskih brigada 42, Beograd, Serbia", null, null, 3 },
+                    { 3, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9094), null, null, "Takovska 54, Beograd, Serbia", null, null, 4 },
+                    { 4, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9100), null, null, "Meininger Strasse 74, Niederbrombach, Germany", null, null, 5 },
+                    { 5, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9103), null, null, "Meininger Strasse 74, Niederbrombach, Germany", null, null, 5 },
+                    { 6, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9114), null, null, "31 Colorado Way, Wyberton, United Kingdom", null, null, 7 },
+                    { 7, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9118), null, null, "31 Colorado Way, Wyberton, United Kingdom", null, null, 7 },
+                    { 8, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9123), null, null, "27 Terrick Rd, EGGESFORD BARTON, United Kingdom", null, null, 8 },
+                    { 9, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9128), null, null, "92 Castledore Road, Tunstall, United Kingdom", null, null, 9 },
+                    { 10, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9132), null, null, "34 Fox Lane, Blindcrake, United Kingdom", null, null, 9 },
+                    { 11, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9142), null, null, "Roligheten 209, DRAMMEN, Norway", null, null, 11 },
+                    { 12, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9144), null, null, "Roligheten 209, DRAMMEN, Norway", null, null, 11 },
+                    { 13, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9150), null, null, "Tjernveien 95, Oslo, Norway", null, null, 12 },
+                    { 14, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9155), null, null, "Studalsmyro 73, Stord, Norway", null, null, 13 },
+                    { 15, new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9158), null, null, "Studalsmyro 73, Stord, Norway", null, null, 13 }
                 });
 
             migrationBuilder.InsertData(
@@ -666,29 +666,29 @@ namespace MultiTenancy.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "OrderItems",
-                columns: new[] { "Id", "CreatedAt", "DeletedAt", "DeletedBy", "IsActive", "OrderId", "ProductId", "ProductName", "Quantity", "UnitPrice", "UpdatedAt", "UpdatedBy" },
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "DeletedBy", "OrderId", "ProductId", "ProductName", "Quantity", "UnitPrice", "UpdatedAt", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 1, 1, "Lugano Double Dresser", 2, 599m, null, null },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 1, 9, "Sydney Trolley", 1, 799m, null, null },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 2, 4, "Vienna Chair", 1, 599m, null, null },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 3, 10, "Rome Ourdoor Sofa 2 seater", 1, 1599m, null, null },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 4, 5, "Bergamo sofa with round lounging unit", 1, 3499m, null, null },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 5, 3, "Augusta Table", 2, 799m, null, null },
-                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 6, 13, "SAMSUNG Z Flip4 8/256GB Blue", 2, 1199m, null, null },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 7, 19, "CELLY Power bank PBPD22W10000WH", 1, 39m, null, null },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 8, 12, "SAMSUNG Z Flip4 8/256GB Purple", 1, 1199m, null, null },
-                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 9, 16, "HUAWEI P50 Pro 256GB Black", 1, 1399m, null, null },
-                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 9, 17, "HUAWEI P50 Pocket 256GB White", 2, 1499m, null, null },
-                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 10, 21, "SENNHEISER Momentum TW3 TWS", 1, 299m, null, null },
-                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 11, 24, "OSRAM LED Lamp Value 10W E27 Natural White", 2, 1.9m, null, null },
-                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 11, 26, "OSRAM LED Lamp Value 5.5W E14 White", 2, 2m, null, null },
-                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 12, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 1, 15m, null, null },
-                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 13, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 2, 15m, null, null },
-                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 13, 31, "SubstiTUBE T8 EM 1200MM 15.6W Natural White", 1, 8m, null, null },
-                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 14, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 1, 15m, null, null },
-                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 14, 24, "OSRAM LED Lamp Value 10W E27 Natural White", 2, 1.9m, null, null },
-                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, 15, 25, "OSRAM LED Lamp Value 6.5W E27 Clear Natural White", 2, 2.5m, null, null }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1, 1, "Lugano Double Dresser", 2, 599m, null, null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1, 9, "Sydney Trolley", 1, 799m, null, null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 2, 4, "Vienna Chair", 1, 599m, null, null },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 3, 10, "Rome Ourdoor Sofa 2 seater", 1, 1599m, null, null },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 4, 5, "Bergamo sofa with round lounging unit", 1, 3499m, null, null },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 5, 3, "Augusta Table", 2, 799m, null, null },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 6, 13, "SAMSUNG Z Flip4 8/256GB Blue", 2, 1199m, null, null },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 7, 19, "CELLY Power bank PBPD22W10000WH", 1, 39m, null, null },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 8, 12, "SAMSUNG Z Flip4 8/256GB Purple", 1, 1199m, null, null },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 9, 16, "HUAWEI P50 Pro 256GB Black", 1, 1399m, null, null },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 9, 17, "HUAWEI P50 Pocket 256GB White", 2, 1499m, null, null },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 10, 21, "SENNHEISER Momentum TW3 TWS", 1, 299m, null, null },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 11, 24, "OSRAM LED Lamp Value 10W E27 Natural White", 2, 1.9m, null, null },
+                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 11, 26, "OSRAM LED Lamp Value 5.5W E14 White", 2, 2m, null, null },
+                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 12, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 1, 15m, null, null },
+                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 13, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 2, 15m, null, null },
+                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 13, 31, "SubstiTUBE T8 EM 1200MM 15.6W Natural White", 1, 8m, null, null },
+                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 14, 30, "LEDVANCE LED SLIM FI169/158 12W Warm White", 1, 15m, null, null },
+                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 14, 24, "OSRAM LED Lamp Value 10W E27 Natural White", 2, 1.9m, null, null },
+                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 15, 25, "OSRAM LED Lamp Value 6.5W E27 Clear Natural White", 2, 2.5m, null, null }
                 });
 
             migrationBuilder.InsertData(

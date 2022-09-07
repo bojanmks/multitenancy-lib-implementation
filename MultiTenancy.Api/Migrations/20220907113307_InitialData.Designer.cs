@@ -12,8 +12,8 @@ using MultiTenancy.DataAccess;
 namespace MultiTenancy.Api.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20220905195520_AddCartItemConfiguration")]
-    partial class AddCartItemConfiguration
+    [Migration("20220907113307_InitialData")]
+    partial class InitialData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -939,7 +939,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6393),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9034),
                             DeliveryLocation = "Omladinskih brigada 42, Beograd, Serbia",
                             StatusId = (byte)0,
                             UserId = 3
@@ -947,7 +947,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6518),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9078),
                             DeliveryLocation = "Omladinskih brigada 42, Beograd, Serbia",
                             StatusId = (byte)0,
                             UserId = 3
@@ -955,7 +955,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6542),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9094),
                             DeliveryLocation = "Takovska 54, Beograd, Serbia",
                             StatusId = (byte)0,
                             UserId = 4
@@ -963,7 +963,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6558),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9100),
                             DeliveryLocation = "Meininger Strasse 74, Niederbrombach, Germany",
                             StatusId = (byte)0,
                             UserId = 5
@@ -971,7 +971,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6565),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9103),
                             DeliveryLocation = "Meininger Strasse 74, Niederbrombach, Germany",
                             StatusId = (byte)0,
                             UserId = 5
@@ -979,7 +979,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6597),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9114),
                             DeliveryLocation = "31 Colorado Way, Wyberton, United Kingdom",
                             StatusId = (byte)0,
                             UserId = 7
@@ -987,7 +987,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6604),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9118),
                             DeliveryLocation = "31 Colorado Way, Wyberton, United Kingdom",
                             StatusId = (byte)0,
                             UserId = 7
@@ -995,7 +995,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6618),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9123),
                             DeliveryLocation = "27 Terrick Rd, EGGESFORD BARTON, United Kingdom",
                             StatusId = (byte)0,
                             UserId = 8
@@ -1003,7 +1003,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6633),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9128),
                             DeliveryLocation = "92 Castledore Road, Tunstall, United Kingdom",
                             StatusId = (byte)0,
                             UserId = 9
@@ -1011,7 +1011,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6643),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9132),
                             DeliveryLocation = "34 Fox Lane, Blindcrake, United Kingdom",
                             StatusId = (byte)0,
                             UserId = 9
@@ -1019,7 +1019,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6669),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9142),
                             DeliveryLocation = "Roligheten 209, DRAMMEN, Norway",
                             StatusId = (byte)0,
                             UserId = 11
@@ -1027,7 +1027,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6676),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9144),
                             DeliveryLocation = "Roligheten 209, DRAMMEN, Norway",
                             StatusId = (byte)0,
                             UserId = 11
@@ -1035,7 +1035,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6691),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9150),
                             DeliveryLocation = "Tjernveien 95, Oslo, Norway",
                             StatusId = (byte)0,
                             UserId = 12
@@ -1043,7 +1043,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6706),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9155),
                             DeliveryLocation = "Studalsmyro 73, Stord, Norway",
                             StatusId = (byte)0,
                             UserId = 13
@@ -1051,7 +1051,7 @@ namespace MultiTenancy.Api.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2022, 9, 5, 21, 55, 18, 649, DateTimeKind.Local).AddTicks(6712),
+                            CreatedAt = new DateTime(2022, 9, 7, 13, 33, 6, 754, DateTimeKind.Local).AddTicks(9158),
                             DeliveryLocation = "Studalsmyro 73, Stord, Norway",
                             StatusId = (byte)0,
                             UserId = 13
@@ -1076,7 +1076,9 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -1098,7 +1100,8 @@ namespace MultiTenancy.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
