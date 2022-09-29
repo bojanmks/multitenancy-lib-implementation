@@ -16,9 +16,7 @@ namespace MultiTenancy.Implementation.Validators.Addresses
             RuleFor(x => x.Data)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
-                .WithMessage("Address Id is required.")
-                .Must(id => context.Addresses.Any(x => x.Id == id))
-                .WithMessage("Address with an Id of {PropertyValue} does not exist.");
+                .WithMessage("Address Id is required.");
         }
     }
 }
