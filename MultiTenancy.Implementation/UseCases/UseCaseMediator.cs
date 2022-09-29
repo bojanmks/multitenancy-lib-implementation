@@ -27,7 +27,11 @@ namespace MultiTenancy.Implementation.UseCases
         private readonly IServiceProvider _provider;
         private readonly IApplicationActor _user;
         private readonly IUseCaseLogger _logger;
-        public UseCaseMediator(ShopDbContext context, IMapper mapper, IServiceProvider provider, IApplicationActor user, IUseCaseLogger logger)
+        public UseCaseMediator(ShopDbContext context, 
+                                IMapper mapper, 
+                                IServiceProvider provider, 
+                                IApplicationActor user, 
+                                IUseCaseLogger logger)
         {
             _context = context;
             _mapper = mapper;
